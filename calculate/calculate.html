@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculate</title>
+    <link rel="stylesheet" href="calculate.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="calculator">
+        <div class="calculation">
+            <div class="display">
+                <input type="text" id="input" placeholder="0" disabled>
+            </div>
+            <div class="buttons">
+                <button data-number="AC" class="operation button">AC</button>
+                <button data-number="DEL" class="operation button">DEL</button>
+                <button data-number="%" class="operation button">%</button>
+                <button data-number="/" class="operation-button button">/</button>
+                <button data-number="7" class="digit-button button">7</button>
+                <button data-number="8" class="digit-button button">8</button>
+                <button data-number="9" class="digit-button button">9</button>
+                <button data-number="*" class="operation-button button">*</button>
+                <button data-number="4" class="digit-button button">4</button>
+                <button data-number="5" class="digit-button button">5</button>
+                <button data-number="6" class="digit-button button">6</button>
+                <button data-number="-" class="operation-button button">-</button>
+                <button data-number="1" class="digit-button button">1</button>
+                <button data-number="2" class="digit-button button">2</button>
+                <button data-number="3" class="digit-button button">3</button>
+                <button data-number="+" class="operation-button button">+</button>
+                <button data-number="hs" class="digit-button button far fa-clock"></button>
+                <button data-number="0" class="digit-button button">0</button>
+                <button data-number="," class="digit-button button">.</button>
+                <button data-number="=" id="equal" class="operation-button equal-button">=</button>
+            </div>
+        </div>
+        <div class="history">
+            <h2 id="historyTitle">History</h2>
+            <div id="historyContent"></div>
+            <div class="history-buttons">
+                <button id="clearHistory" class="clear-button">Clear</button>
+                <button id="closeHistory" class="close-button">Close</button>
+    </div>
+        </div>
+    </div>
+<script src="calculate.js"></script>
+</body>
+</html>
