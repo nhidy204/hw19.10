@@ -11,12 +11,12 @@ window.onload = () => {
 };
 
 clearBtn.addEventListener("click", () => {
-    historyContent.innerHTML = ""; // xóa hết nội dung
+    historyContent.innerHTML = ""; 
 });
 
 closeBtn.addEventListener("click", () => {
     const historyBox = document.querySelector(".history");
-    historyBox.classList.remove("active"); // ẩn history
+    historyBox.classList.remove("active");
 });
 
 buttons.forEach(btn => {
