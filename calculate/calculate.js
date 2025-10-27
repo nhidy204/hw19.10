@@ -8,6 +8,7 @@ const closeBtn = document.getElementById("closeHistory");
 
 window.onload = () => {
     input.value = "";
+    renderHistory(); 
 };
 
 clearBtn.addEventListener("click", () => {
@@ -24,22 +25,24 @@ buttons.forEach(btn => {
         let value = btn.dataset.number;
 
         if (equalPressed) {
+            input.value = "";
             equalPressed = false;
         }
-        if (value === "AC") {
-            input.value = "";
-            return;
+        switch (value) {
+            case "AC":
+                input.value = "";
+                break;
+            case "DEL":
+                input.value = input.value.slice(0, -1);
+                break;
+            case "hs":
+                let historyBox = document.querySelector(".history");
+                historyBox.classList.toggle("active");
+                break;
+            default:
+                input.value += value;
+                break;
         }
-        if (value === "DEL") {
-            input.value = input.value.slice(0, -1);
-            return;
-        }
-        if (value === "hs") {
-            let historyBox = document.querySelector(".history");
-            historyBox.classList.toggle("active");
-            return;
-        }
-        input.value += value;
     });
 });
 
@@ -55,21 +58,34 @@ equal.addEventListener("click", () => {
     addToHistory(expression, result);
 });
 
+
 function addToHistory(expression, result) {
-    historyContent.innerHTML += `
+    let history = JSON.parse(localStorage.getItem("calcHistory")) || [];
+    history.push({ expression, result });
+
+    localStorage.setItem("calcHistory", JSON.stringify(history));
+
+    renderHistory();
+}
+function renderHistory() {
+    let history = JSON.parse(localStorage.getItem("calcHistory")) || [];
+    historyContent.innerHTML = "";
+
+    history.forEach((item, index) => {
+        historyContent.innerHTML += `
         <div class="historyItem" style="display:flex; justify-content:space-between">
-            <span class="history-span" data-user-input="${expression}" style="cursor:pointer; color:white;">
-                ${expression} = ${result}
+            <span class="history-span" data-user-input="${item.expression}" style="cursor:pointer; color:white;">
+                ${item.expression} = ${item.result}
             </span>
-            <button class="history-del btn-sm " style="background:red; color:white;">
+            <button class="history-del btn-sm" data-index="${index}" style="background:red; color:white;">
                 Delete
             </button>
         </div>
-    `;
-    
-    addHistoryEvents();
-}
+        `;
+    });
 
+    addHistoryEvents(); 
+}
 function addHistoryEvents() {
     document.querySelectorAll(".history-span").forEach(span => {
         span.onclick = () => {
@@ -79,9 +95,20 @@ function addHistoryEvents() {
 
     document.querySelectorAll(".history-del").forEach(btn => {
         btn.onclick = () => {
-            btn.parentElement.remove();
+            let index = btn.dataset.index;
+            let history = JSON.parse(localStorage.getItem("calcHistory")) || [];
+            history.splice(index, 1);
+
+            localStorage.setItem("calcHistory", JSON.stringify(history)); 
+
+            renderHistory(); 
         };
     });
 }
+clearBtn.addEventListener("click", () => {
+    localStorage.removeItem("calcHistory");
+    renderHistory(); 
+});
+
 
 

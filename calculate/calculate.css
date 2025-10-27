@@ -8,36 +8,39 @@ body {
   width: -moz-fit-content;
   width: fit-content;
   background: #111;
-  padding: 20px;
   border-radius: 10px;
   position: relative;
-  margin-top: 100px !important;
-  margin: auto;
+  margin: 100px auto 0;
+  padding: 20px 0 20px 20px;
 }
 
 .history {
-  width: 0;
-  overflow: hidden;
+  width: 73px;
   opacity: 0;
-  transition: width 0.3s ease, opacity 0.3s ease;
   background: #222;
-  border-left: 2px solid #444;
-  grid-column: span 4;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 10px;
+  margin-left: -42px;
+  margin-bottom: -51px;
 }
-
 .history.active {
-  width: 200px;
+  width: 300px;
   padding: 10px;
   opacity: 1;
   margin-left: 20px;
+  height: 600px;
 }
 
-.calculation {
-  grid-column: span 6;
+.history-span {
+  word-break: break-all;
+  flex: 1;
+  padding-bottom: 10px;
+}
+
+.historyItem {
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 #historyTitle {
@@ -118,7 +121,7 @@ body {
 }
 
 .clear-button {
-  width: 90px;
+  width: 130px;
   height: 52px;
   border-radius: 10px;
   color: rgb(172, 1, 1);
@@ -132,7 +135,7 @@ body {
 }
 
 .close-button {
-  width: 90px;
+  width: 130px;
   height: 52px;
   border-radius: 10px;
   color: black;
