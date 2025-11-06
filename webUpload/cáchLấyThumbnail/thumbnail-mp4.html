@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+    <script type='text/javascript'>
+        window.onload = function () {
+            var video = document.getElementById('videoId');
+            var canvas = document.getElementById('canvasId');
+            var img = document.getElementById('imgId');
+
+            video.addEventListener('play', function () {
+                canvas.style.display = 'none';
+                img.style.display = 'none';
+            }, false);
+
+            video.addEventListener('pause', function () {
+                canvas.style.display = 'block';
+                img.style.display = 'block';
+
+                draw(video, canvas, img);
+            }, false);
+        };
+
+        function draw(video, canvas, img) {
+            var context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            var dataURL = canvas.toDataURL();
+            img.setAttribute('src', dataURL);
+        }
+    </script>
+</head>
+<body>
+    <video id="videoId" autoplay loop controls>
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <canvas id="canvasId"></canvas>
+    <img id="imgId" src=""/>
+</body>
