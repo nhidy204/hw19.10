@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Capture Frame</title>
+  <script type="text/javascript">
+    function captureFrame() {
+      const tmpVideo = document.getElementById("videoId");
+      const thumbnail = document.getElementById("imgId");
+
+      try { //pixel intrinsic (kích thước thực tế), trước khi metadata load xong, vw và vh thường = 0
+            //--> phải đợi sự kiện loadedmetadata hoặc canplay để đọc
+        const w = Math.max(160, (tmpVideo.videoWidth >> 2) || 160); //>> 2: rút kích thước xuống 1/4: Math.floor(x / 4)
+        const h = Math.max(90, (tmpVideo.videoHeight >> 2) || 90);
+        const canvas = document.createElement("canvas");
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext("2d");
+
+        // Vẽ frame hiện tại từ video
+        ctx.drawImage(tmpVideo, 0, 0, w, h); //chép khung hiện tại từ video lên canvas
+
+        // Gán ảnh thumbnail
+        thumbnail.src = canvas.toDataURL("image/png"); //chuyển frame thành ảnh base64 để hiển thị
+        thumbnail.hidden = false;
+
+      } catch (err) {
+        console.warn("Thumbnail generation failed", err);
+        thumbnail.hidden = true;
+      }
+    }
+  </script>
+</head>
+<body>
+  <video id="videoId" autoplay loop controls>
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <br>
+  <button onclick="captureFrame()">Capture Frame</button>
+  <br><br>
+  <img id="imgId" hidden />
+</body>
+</html>
