@@ -9,12 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const iframe = qs("#playerFrame");
     let selectedFile = null;
 
-    // ============ Upload & Preview =============
+    // Upload & Preview 
     chooseBtn.addEventListener("click", (e) => {
-        e.stopPropagation(); // 🔒 ngăn click lan sang dropZone
-        e.preventDefault();  // 🧱 chặn hành vi mặc định (nếu có form)
-        fileInput.value = ""; // 🔁 reset giá trị cũ để chọn lại cùng file vẫn được
-        fileInput.click();    // ✅ chỉ mở 1 lần
+        e.stopPropagation();
+        e.preventDefault();
+        fileInput.value = "";
+        fileInput.click();
     });
 
 
@@ -43,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const FALLBACK_MS = 4000;
         let fallbackTimer = setTimeout(() => {
-            // Nothing captured in time -> hide thumbnail and cleanup
             thumbnail.hidden = true;
             cleanup();
         }, FALLBACK_MS);
@@ -68,17 +67,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         };
 
-        // Preferred: seek to a small offset then capture on 'seeked'
         const onLoadedMeta = () => {
             const duration = video.duration || 0;
             let seekTime = 0.1;
             if (duration > 1) seekTime = Math.min(0.5, duration * 0.1);
             const onSeeked = () => {
                 video.removeEventListener("seeked", onSeeked);
-                // ensure dimensions available; if not, wait for canplay
                 if (video.videoWidth && video.videoHeight) capture();
                 else {
-                    // try again on canplay
                     video.addEventListener("canplay", function once() {
                         capture();
                     }, {once: true});
@@ -88,17 +84,12 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
                 video.currentTime = seekTime;
             } catch (e) {
-                // some browsers may throw; fallback to capturing when data available
                 video.addEventListener("loadeddata", () => capture(), {once: true});
             }
         };
-
-        // If loadeddata fires before metadata/seek, attempt capture (fallback)
         video.addEventListener("loadedmetadata", onLoadedMeta, {once: true});
         video.addEventListener("loadeddata", () => {
-            // only capture here if we haven't already shown thumbnail
             if (thumbnail.hidden) {
-                // small delay lets poster/frame be ready
                 setTimeout(() => {
                     if (thumbnail.hidden) capture();
                 }, 150);
@@ -124,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     dropZone.addEventListener("click", () => fileInput.click());
 
-    // ============ Gửi sang iframe =============
+    // post to iframe
     uploadBtn.addEventListener("click", () => {
         if (!selectedFile) return (uploadStatus.textContent = "Chưa chọn file!");
         const fileUrl = URL.createObjectURL(selectedFile);
