@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Video Upload</title>
+    <link rel="stylesheet" href="video-web.css"/>
+</head>
+<body>
+<main class="main">
+    <div style="flex: 1;">
+        <h2 style="margin-bottom: 12px;">Pick From Library</h2>
+        <input type="file" id="fileInput" accept="video/*" hidden/>
+        <div id="dropZone">
+            <button id="chooseBtn">Pick Video</button>
+            <p class="drop-hint">Drag&Drop to this or <br> Click to pick</p>
+        </div>
+        <button id="uploadBtn" disabled style="margin-top: 10px;">Upload & Play</button>
+        <span id="uploadStatus" style="color: #94a3b8"></span>
+        <div class="preview" style="margin-top: 12px;">
+            <img id="thumbnail" hidden/>
+        </div>
+    </div>
+    <div style="flex:1;">
+        <iframe id="playerFrame"
+                src="player.html"
+                width="900px"
+                height="500"
+                allowfullscreen>
+        </iframe>
+    </div>
+</main>
+<script defer src="upload.js"></script>
+</body>
+</html>
