@@ -1,0 +1,57 @@
+$white: white;
+$black: black;
+$font-stack: 'Poppins', sans-serif;
+$border-radius: 10px;
+
+%flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin dashed-border($color) {
+  border: 2px dashed $color;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: $font-stack;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background: $black;
+  @extend %flex-center;
+
+  #left, #right {
+    width: 300px;
+    height: 625px;
+    margin: 20px;
+    @include dashed-border($white);
+    border-radius: $border-radius;
+  }
+
+  .under {
+    width: 250px;
+    min-height: 200px;
+    @include dashed-border($black);
+    margin: 25px auto 0;
+    background-color: $white;
+  }
+
+  .list {
+    height: 60px;
+    margin: 30px;
+    color: $white;
+    @extend %flex-center;
+    cursor: grab;
+    border-radius: $border-radius;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}

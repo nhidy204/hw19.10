@@ -1,0 +1,42 @@
+.container .list, .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background: black;
+}
+.container #left, .container #right {
+  width: 300px;
+  height: 625px;
+  margin: 20px;
+  border: 2px dashed white;
+  border-radius: 10px;
+}
+.container .under {
+  width: 250px;
+  min-height: 200px;
+  border: 2px dashed black;
+  margin: 25px auto 0;
+  background-color: white;
+}
+.container .list {
+  height: 60px;
+  margin: 30px;
+  color: white;
+  cursor: grab;
+  border-radius: 10px;
+}
+.container .list:hover {
+  opacity: 0.5;
+}/*# sourceMappingURL=DragDrop.css.map */
