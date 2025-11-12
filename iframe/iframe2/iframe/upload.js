@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const uploadStatus = qs("#uploadStatus");
     const dropZone = qs("#dropZone");
     const iframe = qs("#playerFrame");
+    const timeInput = qs("#timeInput");
+
     let selectedFile = null;
 
     // Upload & Preview 
@@ -117,9 +119,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // post to iframe
     uploadBtn.addEventListener("click", () => {
-        if (!selectedFile) return (uploadStatus.textContent = "Chưa chọn file!");
+        if (!selectedFile) return (uploadStatus.textContent = "MUST to pick file!");
         const fileUrl = URL.createObjectURL(selectedFile);
-        uploadStatus.textContent = "Video playing...";
         iframe.contentWindow.postMessage({type: "LOAD_VIDEO", url: fileUrl}, "*");
     });
+
+    window.addEventListener("message", (e) => {
+        if (!e.data) return;
+
+        if (e.data.type === "VIDEO_PLAYING") {
+            uploadStatus.textContent = "Video playing...";
+        } else if (e.data.type === "VIDEO_PAUSING") {
+            uploadStatus.textContent = "Video pausing...";
+        }
+    });
+
+    // time for video
+    timeInput.addEventListener("change", () => {
+        const val = timeInput.value.trim();
+        if (!val) return;
+        let seconds = 0;
+        if (val.includes(":")) {
+            const [m, s] = val.split(":").map(Number);
+            seconds = (m || 0) * 60 + (s || 0);
+        } else {
+            seconds = parseFloat(val);
+        }
+
+        if (isNaN(seconds) || seconds < 0) {
+            uploadStatus.textContent = "Invalid time format";
+            return;
+        }
+
+        uploadStatus.textContent = "";
+        iframe.contentWindow.postMessage({type: "SEEK_TO", time: seconds}, "*");
+    });
+
+
 });
