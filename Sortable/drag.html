@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board Drag & Drop Trello-style</title>
+    <link rel="stylesheet" href="drag.css">
+    <script src="Sortable.min.js"></script>
+    <script src="drag.js"></script>
+</head>
+<body>
+
+<div id="board_body">
+    <ul id="list_sortable">
+        <li class="list" id="node1">
+            <div class="list-header">
+                <h4>item 1</h4>
+            </div>
+            <ul class="m-card-sortable">
+                <li class="m-card" style="background: red; color: white;">item 1.1</li>
+                <li class="m-card" style="background: red; color: white;">item 1.2</li>
+                <li class="m-card" style="background: red; color: white;">item 1.3</li>
+                <li class="m-card" style="background: red; color: white;">item 1.4</li>
+            </ul>
+        </li>
+        <li class="list" id="node2">
+            <div class="list-header">
+                <h4>item 2</h4>
+            </div>
+            <ul class="m-card-sortable">
+                <li class="m-card" style="background: yellow; color: red;">item 2.1</li>
+                <li class="m-card" style="background: yellow; color: red;">item 2.2</li>
+                <li class="m-card" style="background: yellow; color: red;">item 2.3</li>
+                <li class="m-card" style="background: yellow; color: red;">item 2.4</li>
+            </ul>
+        </li>
+        <li class="list" id="node3">
+            <div class="list-header">
+                <h4>item 3</h4>
+            </div>
+            <ul class="m-card-sortable">
+                <li class="m-card" style="background: green; color: white;">item 3.1</li>
+                <li class="m-card" style="background: green; color: white;">item 3.2</li>
+                <li class="m-card" style="background: green; color: white;">item 3.3</li>
+                <li class="m-card" style="background: green; color: white;">item 3.4</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>
