@@ -1,0 +1,64 @@
+$light-gray: #f0f2f5;
+$light-blue: #b2d4e1;
+$item: #e1e4e8;
+$white: #ffffff;
+$black: black;
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background: $light-gray;
+}
+
+.board {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  margin-top: 275px;
+  justify-content: center;
+}
+
+.list {
+  background: $light-blue;
+  padding: 20px;
+  border-radius: 8px;
+  width: 250px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  cursor: grab;
+  transition: opacity 0.2s, transform 0.2s;
+
+  &.dragging {
+    opacity: 0.5;
+    transform: scale(1.05);
+    cursor: grabbing;
+  }
+
+  h3 {
+    font-size: 18px;
+    text-align: center;
+    color: $black;
+  }
+
+  .item {
+    background: $item;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: grab;
+    transition: transform 0.2s, background 0.2s;
+    text-align: center;
+
+    &.dragging {
+      opacity: 0.5;
+      transform: scale(1.05);
+      cursor: grabbing;
+    }
+
+    &.over {
+      border: 2px dashed $white;
+    }
+  }
+}

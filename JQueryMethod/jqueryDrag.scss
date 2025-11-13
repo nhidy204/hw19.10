@@ -1,0 +1,63 @@
+$white: white;
+$black: black;
+$blue: #b2d4e1;
+$gray: #e3e3e3;
+$green: #6c6;
+
+body {
+  font-family: sans-serif;
+  background: $black;
+  padding: 20px;
+}
+
+#board_body {
+  display: flex;
+  justify-content: center;
+  margin-top: 275px;
+}
+
+#list_sortable {
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  list-style: none;
+
+  .list {
+    background: $blue;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 2px 5px $black;
+    padding: 20px;
+
+    .list-content {
+
+      h4 {
+        font-size: 18px;
+        text-align: center;
+      }
+    }
+
+    .m-card-sortable {
+      min-height: 40px;
+      padding: 0;
+      list-style: none;
+
+      .m-card {
+        background: $gray;
+        border-radius: 6px;
+        margin: 5px 0;
+        padding: 8px;
+        cursor: grab;
+        text-align: center;
+      }
+
+      .placeholder {
+        background: $white;
+        border: 2px dashed $green;
+        border-radius: 6px;
+        height: 40px;
+        margin: 5px 0;
+      }
+    }
+  }
+}
