@@ -10,20 +10,37 @@ document.addEventListener("DOMContentLoaded", () => {
     const video = qs("video", container);
     if (!container || !video) return;
 
-    const get = (sel) => qs(sel, container);
-    const [playBtn, volumeSlider, fullscreenBtn, skipBackBtn, skipForBtn,
-        pipBtn, playbackBtn, speedMenu, videoTimeline, progressBar, wrapper] = [
-        ".play-pause", ".option.left input[type='range']", ".fullscreen i", ".skip-backward",
-        ".skip-forward", ".pic-in-pic", ".playback-speed", ".speed-options",
-        ".video-timeline", ".progress-bar", ".progress-area", ".wrapper"
-    ].map(get);
+    // main controls button
+    const playBtn = qs(".play-pause", container);
+    const skipBackBtn = qs(".skip-backward", container);
+    const skipForBtn = qs(".skip-forward", container);
+    const fullscreenBtn = qs(".fullscreen i", container);
+    const pipBtn = qs(".pic-in-pic", container);
 
-    const [playIcon, playTooltip, volumeBtn, volumeTooltip, fullscreenTooltip,
-        skipBackTooltip, skipForTooltip, hoverTimeEl, currentTimeEl, durationEl, centerIcon] = [
-        ".play-pause i", ".play-pause .tooltip", ".volume i", ".volume .tooltip",
-        ".fullscreen .tooltip", ".skip-backward .tooltip", ".skip-forward .tooltip",
-        ".progress-area span", ".current-time", ".video-duration", ".center-icon"
-    ].map(get);
+    // volume slider + speed 
+    const volumeSlider = qs(".option.left input[type='range']", container);
+    const playbackBtn = qs(".playback-speed", container);
+    const speedMenu = qs(".speed-options", container);
+
+    // Icon & tooltip
+    const playIcon = qs(".play-pause i", container);
+    const playTooltip = qs(".play-pause .tooltip", container);
+    const volumeBtn = qs(".volume i", container);
+    const volumeTooltip = qs(".volume .tooltip", container);
+    const fullscreenTooltip = qs(".fullscreen .tooltip", container);
+    const skipBackTooltip = qs(".skip-backward .tooltip", container);
+    const skipForTooltip = qs(".skip-forward .tooltip", container);
+
+    //timeline/video
+    const videoTimeline = qs(".video-timeline", container);
+    const progressBar = qs(".progress-bar", container);
+    const hoverTimeEl = qs(".progress-area span", container);
+    const currentTimeEl = qs(".current-time", container);
+    const durationEl = qs(".video-duration", container);
+    const centerIcon = qs(".center-icon", container);
+
+    //wrapper
+    const wrapper = qs(".wrapper", container);
 
 
     const formatTime = (t) => {
@@ -81,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     skipBackBtn.addEventListener("click", () => video.currentTime -= 5);
     skipForBtn.addEventListener("click", () => video.currentTime += 5);
 
-    fullscreenBtn?.parentElement?.addEventListener("click", () =>
+    fullscreenBtn.parentElement.addEventListener("click", () =>
         document.fullscreenElement ? document.exitFullscreen() : container.requestFullscreen()
     );
     document.addEventListener("fullscreenchange", () => {
@@ -120,14 +137,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     let hideTimer;
-    const showControls = () => {
+
+    function showControls() {
         container.classList.add("show-controls");
         clearTimeout(hideTimer);
         hideTimer = setTimeout(() => {
             if (!container.matches(":hover") && !wrapper?.matches(":hover"))
                 container.classList.remove("show-controls");
         }, 2000);
-    };
+    }
+
     container.addEventListener("mousemove", showControls);
     container.addEventListener("mouseleave", () => {
         clearTimeout(hideTimer);
@@ -136,20 +155,46 @@ document.addEventListener("DOMContentLoaded", () => {
     wrapper?.addEventListener("mouseenter", showControls);
     wrapper?.addEventListener("mouseleave", showControls);
 
-    const volIcon = volumeBtn;
-    const volSlider = volumeSlider;
     let lastVolume = video.volume;
 
     const updateVolumeUI = () => {
         const v = video.muted ? 0 : video.volume;
-        volIcon.className =
-            v === 0 ? "fa-solid fa-volume-xmark" :
-                v <= 0.5 ? "fa-solid fa-volume-low" : "fa-solid fa-volume-high";
-        volumeTooltip.textContent = v === 0 ? "Unmute" : "Mute";
-        volSlider.value = Math.round(v * 100);
+
+        let level;
+        if (v === 0) {
+            level = "mute";
+        } else if (v <= 0.5) {
+            level = "low";
+        } else {
+            level = "high";
+        }
+
+        switch (level) {
+            case "mute":
+                volumeBtn.className = "fa-solid fa-volume-xmark";
+                volumeTooltip.textContent = "Unmute";
+                break;
+
+            case "low":
+                volumeBtn.className = "fa-solid fa-volume-low";
+                volumeTooltip.textContent = "Mute";
+                break;
+
+            case "high":
+                volumeBtn.className = "fa-solid fa-volume-high";
+                volumeTooltip.textContent = "Mute";
+                break;
+
+            default:
+                volumeTooltip.textContent = "Mute";
+                break;
+        }
+
+        volumeSlider.value = String(Math.round(v * 100));
     };
 
-    volIcon?.parentElement?.addEventListener("click", () => {
+
+    volumeBtn?.parentElement?.addEventListener("click", () => {
         if (video.muted || video.volume === 0) {
             video.muted = false;
             video.volume = lastVolume || 1;
@@ -160,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
         updateVolumeUI();
     });
 
-    volSlider?.addEventListener("input", (e) => {
+    volumeSlider?.addEventListener("input", (e) => {
         const v = Math.min(Math.max(e.target.value / 100, 0), 1);
         video.volume = v;
         video.muted = v === 0;
