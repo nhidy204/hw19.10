@@ -1,0 +1,362 @@
+$white: #ffffff;
+$black: #000000;
+$light-gray: rgb(204, 204, 204);
+$gray: #e9e9e961;
+$dark-gray: #a3a3a3;
+$red: red;
+
+$blue: #6161fd;
+$green: #4cc14ccf;
+$dark-blue: rgba(97, 97, 253, 0.06);
+$dark-purple: rgba(97, 97, 253, 0.5);
+
+$font-mono: monospace;
+$f-size-sm: 14px;
+$f-size-md: 20px;
+$f-size-lg: 40px;
+
+$radius: 5px;
+$spacing-sm: 10px;
+$spacing-xs: 8px;
+
+@mixin btn-style($bg-color, $width: 7rem) {
+    padding: 12px;
+    width: $width;
+    border: 1px solid $bg-color;
+    border-radius: $radius;
+    background: $bg-color;
+    color: $white;
+    cursor: pointer;
+    text-align: center;
+    font-family: $font-mono;
+    font-size: $f-size-sm;
+    transition: opacity 0.2s;
+
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+@mixin column-base {
+    width: 31%;
+    height: 500px;
+    border: 2px solid $white;
+    text-align: left;
+    padding: $spacing-sm;
+    font-weight: bold;
+    background: $white;
+}
+
+@mixin inner-column-base {
+    width: 96%;
+    height: 86%;
+    margin-top: $spacing-sm;
+    border: 2px solid $gray;
+    background-color: $gray;
+}
+
+body {
+    padding: $spacing-sm;
+    font-family: sans-serif;
+}
+
+h1 {
+    font-family: $font-mono;
+    font-size: $f-size-lg;
+    margin: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-sm;
+}
+
+.inputAdd {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-sm;
+
+    .add-input {
+        width: 92%;
+        height: 20px;
+        font-family: $font-mono;
+        font-size: $f-size-sm;
+        border-radius: $radius;
+        border: 1px solid $light-gray;
+        padding: $spacing-sm;
+    }
+
+    .add-button {
+        @include btn-style($green);
+    }
+}
+
+.button {
+    display: flex;
+    justify-content: flex-start;
+    gap: $spacing-sm;
+    margin: $spacing-sm 0;
+
+    .undo,
+    .redo,
+    .export {
+        @include btn-style($blue);
+    }
+
+    .redo:disabled {
+        background: $dark-gray;
+        cursor: not-allowed;
+        color: $black;
+        border: none;
+        opacity: 1;
+    }
+}
+
+.sync-status {
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: $green;
+    color: $white;
+    height: 1.5rem;
+    width: 5.5rem;
+    text-align: center;
+    margin-top: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.task-progress {
+    display: flex;
+    justify-content: space-between;
+}
+
+.todo,
+.inProgress,
+.done {
+    @include column-base;
+
+    .column {
+        font-family: $font-mono;
+        font-size: $f-size-md;
+    }
+
+    .in-todo,
+    .in-InProgress,
+    .in-done {
+        @include inner-column-base;
+    }
+}
+
+.dropzone {
+    width: 90%;
+    height: calc(90% - 10px);
+    margin-top: $spacing-sm;
+    border: 2px dashed $black;
+    background-color: transparent;
+    padding: $spacing-xs;
+    overflow-y: auto;
+    transition: background-color 0.2s, border-color 0.2s;
+
+    &.drag-over {
+        background-color: $dark-blue;
+        border-color: $dark-purple;
+    }
+}
+
+.task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-xs;
+    margin: $spacing-xs 0;
+    border-radius: 6px;
+    background: $white;
+    border: 1px solid $black;
+    cursor: grab;
+    user-select: none;
+    font-weight: normal;
+    transition: transform 0.2s, opacity 0.2s;
+    font-family: monospace;
+    font-size: 14px;
+
+    .task-text {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-right: 8px;
+    }
+
+    button {
+        flex-shrink: 0;
+
+        &:hover {
+            background-color: #dbdbdb;
+        }
+    }
+
+    &.dragging {
+        opacity: 0.6;
+        transform: scale(0.98);
+        cursor: grabbing;
+    }
+
+    .delete-btn {
+        background: transparent;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        color: $red;
+        padding: 4px 6px;
+
+        &:hover {
+            background-color: rgba($red, 0.1);
+            border-radius: 4px;
+        }
+    }
+}
+
+.task-text.edit-input {
+    width: 100%;    
+    box-sizing: border-box; 
+    font-size: inherit;
+    font-family: inherit;
+    border: 1px solid $light-gray;
+    padding: 2px 4px;
+    margin: 0;
+}
+
+.edit-btn {
+    border-radius: 5px;
+    padding: 4px 6px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+
+$breakpoints: (
+    "sm": 720px,
+    "md": 945px,
+    "lg": 1399px,
+);
+
+@mixin mq($breakpoint, $rule: max) {
+    $size: map-get($breakpoints, $breakpoint);
+
+    @if $size ==null {
+        @warn "Breakpoint `#{$breakpoint}` is not defined in $breakpoints map";
+    }
+
+    @else if $rule ==max {
+        @media screen and (max-width: $size) {
+            @content;
+        }
+    }
+
+    @else if $rule ==min {
+        @media screen and (min-width: $size) {
+            @content;
+        }
+    }
+
+    @else {
+        @warn "Rule `#{$rule}` invalid — use min or max only";
+    }
+}
+
+@include mq(lg, max) {
+
+    .todo,
+    .inProgress,
+    .done {
+        @include column-base;
+
+        .column {
+            font-family: $font-mono;
+            font-size: $f-size-md;
+        }
+
+        .in-todo,
+        .in-InProgress,
+        .in-done {
+            @include inner-column-base;
+            width: 95%;
+        }
+    }
+
+    .inputAdd {
+        gap: 10px;
+    }
+}
+
+@include mq(md, max) {
+
+    .todo,
+    .inProgress,
+    .done {
+        @include column-base;
+
+        .column {
+            font-family: $font-mono;
+            font-size: $f-size-md;
+        }
+
+        .in-todo,
+        .in-InProgress,
+        .in-done {
+            @include inner-column-base;
+            width: 91%;
+        }
+    }
+
+    .inputAdd {
+        gap: 10px;
+    }
+}
+
+@include mq(sm, max) {
+
+    .todo,
+    .inProgress,
+    .done {
+        @include column-base;
+        width: 93%;
+        margin-top: 10px;
+
+        .column {
+            font-family: $font-mono;
+            font-size: $f-size-md;
+        }
+
+        .in-todo,
+        .in-InProgress,
+        .in-done {
+            @include inner-column-base;
+            width: 95%;
+            height: 90%;
+            gap: 0px;
+        }
+    }
+
+    .task-item {
+        gap: 0px;
+    }
+
+    .sync-status {
+        width: 4.5rem;
+    }
+
+    .inputAdd {
+        gap: 10px;
+    }
+    .task-progress {
+        display: block;
+    }
+}

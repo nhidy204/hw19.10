@@ -1,0 +1,347 @@
+body {
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+h1 {
+  font-family: monospace;
+  font-size: 40px;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.inputAdd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.inputAdd .add-input {
+  width: 92%;
+  height: 20px;
+  font-family: monospace;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid rgb(204, 204, 204);
+  padding: 10px;
+}
+.inputAdd .add-button {
+  padding: 12px;
+  width: 7rem;
+  border: 1px solid rgba(76, 193, 76, 0.8117647059);
+  border-radius: 5px;
+  background: rgba(76, 193, 76, 0.8117647059);
+  color: #ffffff;
+  cursor: pointer;
+  text-align: center;
+  font-family: monospace;
+  font-size: 14px;
+  transition: opacity 0.2s;
+}
+.inputAdd .add-button:hover {
+  opacity: 0.7;
+}
+
+.button {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin: 10px 0;
+}
+.button .undo,
+.button .redo,
+.button .export {
+  padding: 12px;
+  width: 7rem;
+  border: 1px solid #6161fd;
+  border-radius: 5px;
+  background: #6161fd;
+  color: #ffffff;
+  cursor: pointer;
+  text-align: center;
+  font-family: monospace;
+  font-size: 14px;
+  transition: opacity 0.2s;
+}
+.button .undo:hover,
+.button .redo:hover,
+.button .export:hover {
+  opacity: 0.7;
+}
+.button .redo:disabled {
+  background: #a3a3a3;
+  cursor: not-allowed;
+  color: #000000;
+  border: none;
+  opacity: 1;
+}
+
+.sync-status {
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: rgba(76, 193, 76, 0.8117647059);
+  color: #ffffff;
+  height: 1.5rem;
+  width: 5.5rem;
+  text-align: center;
+  margin-top: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.task-progress {
+  display: flex;
+  justify-content: space-between;
+}
+
+.todo,
+.inProgress,
+.done {
+  width: 31%;
+  height: 500px;
+  border: 2px solid #ffffff;
+  text-align: left;
+  padding: 10px;
+  font-weight: bold;
+  background: #ffffff;
+}
+.todo .column,
+.inProgress .column,
+.done .column {
+  font-family: monospace;
+  font-size: 20px;
+}
+.todo .in-todo,
+.todo .in-InProgress,
+.todo .in-done,
+.inProgress .in-todo,
+.inProgress .in-InProgress,
+.inProgress .in-done,
+.done .in-todo,
+.done .in-InProgress,
+.done .in-done {
+  width: 96%;
+  height: 86%;
+  margin-top: 10px;
+  border: 2px solid rgba(233, 233, 233, 0.3803921569);
+  background-color: rgba(233, 233, 233, 0.3803921569);
+}
+
+.dropzone {
+  width: 90%;
+  height: calc(90% - 10px);
+  margin-top: 10px;
+  border: 2px dashed #000000;
+  background-color: transparent;
+  padding: 8px;
+  overflow-y: auto;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.dropzone.drag-over {
+  background-color: rgba(97, 97, 253, 0.06);
+  border-color: rgba(97, 97, 253, 0.5);
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  margin: 8px 0;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  cursor: grab;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  font-weight: normal;
+  transition: transform 0.2s, opacity 0.2s;
+  font-family: monospace;
+  font-size: 14px;
+}
+.task-item .task-text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 8px;
+}
+.task-item button {
+  flex-shrink: 0;
+}
+.task-item button:hover {
+  background-color: #dbdbdb;
+}
+.task-item.dragging {
+  opacity: 0.6;
+  transform: scale(0.98);
+  cursor: grabbing;
+}
+.task-item .delete-btn {
+  background: transparent;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  color: red;
+  padding: 4px 6px;
+}
+.task-item .delete-btn:hover {
+  background-color: rgba(255, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.task-text.edit-input {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: inherit;
+  font-family: inherit;
+  border: 1px solid rgb(204, 204, 204);
+  padding: 2px 4px;
+  margin: 0;
+}
+
+.edit-btn {
+  border-radius: 5px;
+  padding: 4px 6px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+
+@media screen and (max-width: 1399px) {
+  .todo,
+  .inProgress,
+  .done {
+    width: 31%;
+    height: 500px;
+    border: 2px solid #ffffff;
+    text-align: left;
+    padding: 10px;
+    font-weight: bold;
+    background: #ffffff;
+  }
+  .todo .column,
+  .inProgress .column,
+  .done .column {
+    font-family: monospace;
+    font-size: 20px;
+  }
+  .todo .in-todo,
+  .todo .in-InProgress,
+  .todo .in-done,
+  .inProgress .in-todo,
+  .inProgress .in-InProgress,
+  .inProgress .in-done,
+  .done .in-todo,
+  .done .in-InProgress,
+  .done .in-done {
+    width: 96%;
+    height: 86%;
+    margin-top: 10px;
+    border: 2px solid rgba(233, 233, 233, 0.3803921569);
+    background-color: rgba(233, 233, 233, 0.3803921569);
+    width: 95%;
+  }
+  .inputAdd {
+    gap: 10px;
+  }
+}
+@media screen and (max-width: 945px) {
+  .todo,
+  .inProgress,
+  .done {
+    width: 31%;
+    height: 500px;
+    border: 2px solid #ffffff;
+    text-align: left;
+    padding: 10px;
+    font-weight: bold;
+    background: #ffffff;
+  }
+  .todo .column,
+  .inProgress .column,
+  .done .column {
+    font-family: monospace;
+    font-size: 20px;
+  }
+  .todo .in-todo,
+  .todo .in-InProgress,
+  .todo .in-done,
+  .inProgress .in-todo,
+  .inProgress .in-InProgress,
+  .inProgress .in-done,
+  .done .in-todo,
+  .done .in-InProgress,
+  .done .in-done {
+    width: 96%;
+    height: 86%;
+    margin-top: 10px;
+    border: 2px solid rgba(233, 233, 233, 0.3803921569);
+    background-color: rgba(233, 233, 233, 0.3803921569);
+    width: 91%;
+  }
+  .inputAdd {
+    gap: 10px;
+  }
+}
+@media screen and (max-width: 720px) {
+  .todo,
+  .inProgress,
+  .done {
+    width: 31%;
+    height: 500px;
+    border: 2px solid #ffffff;
+    text-align: left;
+    padding: 10px;
+    font-weight: bold;
+    background: #ffffff;
+    width: 93%;
+    margin-top: 10px;
+  }
+  .todo .column,
+  .inProgress .column,
+  .done .column {
+    font-family: monospace;
+    font-size: 20px;
+  }
+  .todo .in-todo,
+  .todo .in-InProgress,
+  .todo .in-done,
+  .inProgress .in-todo,
+  .inProgress .in-InProgress,
+  .inProgress .in-done,
+  .done .in-todo,
+  .done .in-InProgress,
+  .done .in-done {
+    width: 96%;
+    height: 86%;
+    margin-top: 10px;
+    border: 2px solid rgba(233, 233, 233, 0.3803921569);
+    background-color: rgba(233, 233, 233, 0.3803921569);
+    width: 95%;
+    height: 90%;
+    gap: 0px;
+  }
+  .task-item {
+    gap: 0px;
+  }
+  .sync-status {
+    width: 4.5rem;
+  }
+  .inputAdd {
+    gap: 10px;
+  }
+  .task-progress {
+    display: block;
+  }
+}/*# sourceMappingURL=task.css.map */
