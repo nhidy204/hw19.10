@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color: #e1e1e161">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8"/>
+    <title>Task Manager 1</title>
+    <link rel="stylesheet" href="task.css"/>
+</head>
+
+<body>
+<div class="header">
+    <h1>Task Manager</h1>
+    <div class="sync-status">synced✓</div>
+</div>
+<div class="inputAdd">
+    <input type="text" placeholder="Add a new task" class="add-input" id="taskInput"/>
+    <button class="add-button" id="addBtn">Add</button>
+</div>
+<div class="button">
+    <button class="undo" id="undoBtn" disabled>Undo</button>
+    <button class="redo" id="redoBtn" disabled>Redo</button>
+    <button class="export" id="exportBtn">Export</button>
+</div>
+<div class="task-progress">
+    <div class="todo column" data-column="To Do">
+        To Do
+        <div class="in-todo dropzone" data-col="To Do"></div>
+    </div>
+    <div class="inProgress column" data-column="In Progress">
+        In Progress
+        <div class="in-InProgress dropzone" data-col="In Progress"></div>
+    </div>
+    <div class="done column" data-column="Done">
+        Done
+        <div class="in-done dropzone" data-col="Done"></div>
+    </div>
+</div>
+
+<script src="task.js"></script>
+</body>
+
+</html>
