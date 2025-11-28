@@ -8,16 +8,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     container.insertBefore(messagesWrapper, document.querySelector(".inputAdd"));
 
+    function deleteMarkdown(text) {
+        if (!text) return "";
+        return text.replace(/(\*\*|__|`|~~|\[|])/g, "");
+    }
+
     async function sendMessage() {
         const text = input.value.trim();
         if (!text) return;
         beginText.style.display = "none";
-        addMessage(text, "user");
+
+        addMessage(deleteMarkdown(text), "user");
         input.value = "";
+
         const loadingEl = addMessage("Typing...", "bot-loading");
         const reply = await callCohereAPI(text);
         loadingEl.remove();
-        addMessage(reply, "bot");
+
+        addMessage(deleteMarkdown(reply), "bot");
     }
 
     sendBtn.addEventListener("click", sendMessage);
@@ -33,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         msg.style.borderRadius = "10px";
         msg.style.fontSize = "15px";
         msg.style.whiteSpace = "pre-wrap";
-        msg.style.fontFamily = "monospace"
+        msg.style.fontFamily = "monospace";
 
         if (type === "user") {
             msg.style.alignSelf = "flex-end";
