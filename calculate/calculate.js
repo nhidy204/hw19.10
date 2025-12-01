@@ -48,15 +48,30 @@ buttons.forEach(btn => {
 
 equal.addEventListener("click", () => {
     equalPressed = true;
-    let expression = input.value;
+    let expression = input.value.trim();
 
-    if (expression.trim() === "") return;
+    if (expression === "") return;
 
-    let result = eval(expression);
+    // Chỉ cho phép ký tự toán học
+    if (!/^[0-9+\-*/().%\s]+$/.test(expression)) {
+        alert("Invalid expression!");
+        return;
+    }
+
+    // Xử lý dấu phần trăm
+    expression = expression.replace(/(\d+)%/g, "($1/100)");
+
+    let result;
+    try {
+        result = Function(`"use strict"; return (${expression})`)();
+    } catch {
+        result = "Error";
+    }
 
     input.value = result;
     addToHistory(expression, result);
 });
+
 
 
 function addToHistory(expression, result) {
