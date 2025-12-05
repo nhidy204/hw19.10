@@ -1,0 +1,188 @@
+body {
+  background: #fff9fa;
+  font-family: monospace;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  border-right: 1px solid #dbdbdb;
+  background: #dbdbdb;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.sidebar #newChatBtn {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background: #006500;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: monospace;
+}
+.sidebar #newChatBtn:hover {
+  opacity: 0.8;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  overflow-y: auto;
+}
+.sidebar ul li {
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #ffffff;
+}
+.sidebar ul li.active {
+  background: #006500;
+  color: #ffffff;
+}
+.sidebar ul li:hover {
+  background: #006500;
+  color: white;
+}
+
+.main-chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff9fa;
+}
+.main-chat .header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background: #006500;
+}
+.main-chat .header .avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background: #d1cece;
+}
+.main-chat .header .name {
+  color: #ffffff;
+  margin: 0;
+  font-size: 20px;
+}
+.main-chat .header .status {
+  margin: 0;
+  font-size: 12px;
+  color: rgb(2, 209, 2);
+}
+.main-chat .messages-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow-y: auto;
+}
+.main-chat .messages-wrapper .begin {
+  text-align: center;
+}
+.main-chat .messages-wrapper .begin .start {
+  padding: 5px 10px;
+  background: #d1cece;
+  border-radius: 20px;
+  display: inline-block;
+  font-family: monospace;
+  color: #333;
+}
+.main-chat .messages-wrapper .messages {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+.main-chat .inputAdd {
+  display: flex;
+  padding: 10px;
+  background: #dbdbdb;
+  gap: 10px;
+}
+.main-chat .inputAdd .inputText {
+  flex: 1;
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: none;
+  font-family: monospace;
+  font-size: 14px;
+}
+.main-chat .inputAdd .send {
+  font-family: monospace;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  background: #006500;
+  color: #ffffff;
+  cursor: pointer;
+}
+.main-chat .inputAdd .send:hover {
+  opacity: 0.8;
+}
+
+.messages > div {
+  max-width: 70%;
+  padding: 10px 15px;
+  border-radius: 15px;
+  font-family: monospace;
+  font-size: 14px;
+  white-space: pre-wrap;
+}
+
+.messages > .user {
+  align-self: flex-end;
+  background: #008000;
+  color: white;
+}
+
+.messages > .bot {
+  align-self: flex-start;
+  background: #d9d9d9;
+  color: #000;
+}
+
+.messages > .bot-loading {
+  align-self: flex-start;
+  background: #f0f0f0;
+  color: #888;
+  font-style: italic;
+}
+
+#convoList li.active {
+  background-color: #000000;
+  color: white;
+}
+
+.deleteConvoBtn {
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+}
+
+.deleteConvoBtn:hover {
+  opacity: 0.8;
+}/*# sourceMappingURL=chat.css.map */

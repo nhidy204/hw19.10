@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBot 2.0</title>
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+<div class="container">
+    <div class="sidebar">
+        <button id="newChatBtn">+ New Chat</button>
+        <ul id="convoList"></ul>
+    </div>
+    <div class="main-chat">
+        <div class="header">
+            <img src="avatar.png" alt="Avatar" class="avatar">
+            <div class="title">
+                <h2 class="name">Chat Bot</h2>
+                <h3 class="status">• Online</h3>
+            </div>
+        </div>
+        <div class="messages-wrapper">
+            <div class="begin"><p class="start">chat started! Send a message to begin</p></div>
+            <div class="messages"></div>
+        </div>
+        <div class="inputAdd">
+            <input type="text" placeholder="Type a message" class="inputText">
+            <button class="send">Send</button>
+        </div>
+    </div>
+</div>
+<script src="chat.js"></script>
+</body>
+</html>
