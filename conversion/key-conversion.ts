@@ -1,3 +1,11 @@
+function assign<
+  O extends object,
+  K extends PropertyKey,
+  V
+>(obj: O, key: K, value: V): asserts obj is O & { [P in K]: V } {
+  (obj as any)[key] = value;
+}
+
 function normalizeWords(str: string): string[] {
   return str
     .toLowerCase()
@@ -12,14 +20,25 @@ export function toPascalCase(str: string): string {
     .join("");
 }
 
-export function toPascalCaseKeys<T extends Record<string, any>>(obj: T): Record<string, any> {
-  if (obj == null || typeof obj !== "object") return {};
-  return Object.keys(obj).reduce((acc, key) => {
-    const newKey = toPascalCase(key);
-    if (!newKey) return acc;
-    acc[newKey] = (obj as Record<string, any>)[key];
-    return acc;
-  }, {} as Record<string, any>);
+type PascalCase<S extends string> =
+  S extends `${infer F}_${infer R}`
+    ? `${Capitalize<F>}${PascalCase<R>}`
+    : S extends `${infer F}-${infer R}`
+      ? `${Capitalize<F>}${PascalCase<R>}`
+      : Capitalize<S>;
+
+export function toPascalCaseKeys<T extends object>(
+  obj: T
+): { [K in keyof T as PascalCase<string & K>]: T[K] } {
+
+  const result = {} as { [K in keyof T as PascalCase<string & K>]: T[K] };
+
+  for (const key in obj) {
+    const newKey = toPascalCase(key) as PascalCase<string & keyof T>;
+    assign(result, newKey, obj[key]);
+  }
+
+  return result;
 }
 
 const obj = {
@@ -28,4 +47,4 @@ const obj = {
   age: 30
 };
 
-console.log(toPascalCaseKeys(obj));
+const r = toPascalCaseKeys(obj);

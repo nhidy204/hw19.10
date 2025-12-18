@@ -1,5 +1,5 @@
 export {};
-const str: string = "123abc";
-const reverse: string = str.split("").reverse().join("");
+const str = "123abc";
+const reverse = str.split("").reverse().join("");
 
 console.log(reverse);
